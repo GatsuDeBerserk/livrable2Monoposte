@@ -1,0 +1,52 @@
+#paneFond {
+    -fx-background-color: #56BAC3;
+}
+
+#compteur {
+    -fx-background-color: #ffffff;
+    -fx-border-color: black;
+    -fx-border-width: 4px;
+}
+
+#formulaire {
+    -fx-background-color: #56BAC3;
+    -fx-border-color: black;
+    -fx-border-width: 4px;
+}
+
+#totaltatal {
+    -fx-font-size: 40px;
+}
+
+#titre {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #3F48CC;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 7px;
+    -fx-border-width: 4px;
+}
+
+#total {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #3F48CC;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 7px;
+    -fx-border-width: 4px;
+}
+
+#question {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #3F48CC;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 7px;
+    -fx-border-width: 4px;
+}
+
+#bouton {
+    -fx-background-color: #56BAC3;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 7px;
+    -fx-border-color: black;
+    -fx-border-width: 4px;
+    -fx-font-size: 15px;
+}
