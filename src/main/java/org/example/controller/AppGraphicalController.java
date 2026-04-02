@@ -11,9 +11,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import org.example.model.Factures;
+import org.example.model.Methode;
 
 public class AppGraphicalController {
-    public String methode = "";
+    public Methode methode=null;
     public double total = 0.0;
     public List<Factures> historique;
 
@@ -53,7 +54,7 @@ public class AppGraphicalController {
 
     @FXML
     void comptantRadio(ActionEvent event) {
-        methode = "comptant";
+        methode = Methode.COMPTANT;
         System.out.println(methode);
         credit.setSelected(false);
         debit.setSelected(false);
@@ -62,7 +63,7 @@ public class AppGraphicalController {
 
     @FXML
     void creditRadio(ActionEvent event) {
-        methode = "credit";
+        methode = Methode.CREDIT;
         System.out.println(methode);
         comptant.setSelected(false);
         debit.setSelected(false);
@@ -70,16 +71,20 @@ public class AppGraphicalController {
 
     @FXML
     void debitRadio(ActionEvent event) {
-        methode = "debit";
+        methode = Methode.DEBIT;
         System.out.println(methode);
-        credit.setSelected(false);
         comptant.setSelected(false);
+        credit.setSelected(false);
     }
 
     @FXML
     void registerF(ActionEvent event) {
         System.out.println("enter");
 
+        comptant.setSelected(false);
+        credit.setSelected(false);
+        debit.setSelected(false);
+        methode = null;
     }
 
     @FXML

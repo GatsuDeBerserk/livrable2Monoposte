@@ -26,7 +26,7 @@
                               <Font size="17.0" />
                            </font>
                         </TextField>
-                        <Label id="total" fx:id="donUnique" layoutX="178.0" layoutY="10.0" prefHeight="54.0" prefWidth="95.0" text="0,76">
+                        <Label id="total" fx:id="donUnique" layoutX="178.0" layoutY="10.0" prefHeight="54.0" prefWidth="95.0" text="0.00">
                            <font>
                               <Font size="29.0" />
                            </font>
@@ -41,14 +41,14 @@
                               <Font size="17.0" />
                            </font>
                         </TextField>
-                        <Pane id="question" layoutX="10.0" layoutY="195.0" prefHeight="162.0" prefWidth="258.0">
+                        <Pane id="question" layoutX="10.0" layoutY="195.0" prefHeight="116.0" prefWidth="258.0">
                            <children>
                               <RadioButton fx:id="comptant" layoutX="14.0" layoutY="23.0" mnemonicParsing="false" onAction="#comptantRadio" text="Comptant" />
                               <RadioButton fx:id="debit" layoutX="14.0" layoutY="73.0" mnemonicParsing="false" onAction="#debitRadio" text="Débit" />
                               <RadioButton fx:id="credit" layoutX="161.0" layoutY="23.0" mnemonicParsing="false" onAction="#creditRadio" text="Crédit" />
-                              <Button id="bouton" fx:id="register" layoutX="13.0" layoutY="110.0" mnemonicParsing="false" onAction="#registerF" prefHeight="39.0" prefWidth="233.0" text="ajouter la facture" />
                            </children>
                         </Pane>
+                        <Button id="bouton" fx:id="register" layoutX="26.0" layoutY="320.0" mnemonicParsing="false" onAction="#registerF" prefHeight="39.0" prefWidth="233.0" text="ajouter la facture" />
                      </children>
                   </Pane>
                </children>
@@ -57,7 +57,7 @@
                <children>
                   <Pane id="compteur" prefHeight="108.0" prefWidth="200.0">
                      <children>
-                        <Label id="totaltatal" fx:id="donTotal" layoutX="3.0" layoutY="3.0" prefHeight="102.0" prefWidth="194.0" text=" 2592.66" />
+                        <Label id="totaltatal" fx:id="donTotal" layoutX="3.0" layoutY="3.0" prefHeight="102.0" prefWidth="194.0" text="00.00" />
                      </children>
                   </Pane>
                </children>

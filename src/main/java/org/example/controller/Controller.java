@@ -9,8 +9,6 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import org.example.model.Banque;
-import org.example.model.Client;
 
 /**
  * Graphical controls and command line controls offering a choice of ticket vending machines.
@@ -21,7 +19,7 @@ public class Controller extends Application {
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("compileur de factures");
 
-        Banque banque = new Banque();
+
         TabPane root = new TabPane();
 
 
