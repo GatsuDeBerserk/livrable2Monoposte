@@ -34,7 +34,7 @@
     -fx-border-width: 4px;
 }
 
-#question {
+#question, retourInfo {
     -fx-background-color: #ffffff;
     -fx-border-color: #3F48CC;
     -fx-border-radius: 5px;
@@ -49,4 +49,9 @@
     -fx-border-color: black;
     -fx-border-width: 4px;
     -fx-font-size: 15px;
+}
+
+#retourInfo {
+    -fx-text-fill: red;
+    -fx-font-weight: Bold;
 }

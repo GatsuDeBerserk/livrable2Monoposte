@@ -6,17 +6,19 @@ import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import org.example.model.Factures;
+import javafx.scene.control.*;
+import org.example.model.Facture;
 import org.example.model.Methode;
 
+import static java.lang.Double.parseDouble;
+
 public class AppGraphicalController {
-    public Methode methode=null;
+    public Methode methode = null;
     public double total = 0.0;
-    public List<Factures> historique;
+    public List<Facture> historique;
+    public double montantActuel = 0;
+    public double taxeActuel = 0;
+    public double donActuel = 0;
 
 
     @FXML
@@ -53,11 +55,13 @@ public class AppGraphicalController {
     private TextField taxeF;
 
     @FXML
+    private TextArea message;
+
+    @FXML
     void comptantRadio(ActionEvent event) {
         methode = Methode.COMPTANT;
         System.out.println(methode);
-        credit.setSelected(false);
-        debit.setSelected(false);
+        resetForm(comptant);
 //        comptant.setDisable(true); //grise la radio
     }
 
@@ -65,27 +69,25 @@ public class AppGraphicalController {
     void creditRadio(ActionEvent event) {
         methode = Methode.CREDIT;
         System.out.println(methode);
-        comptant.setSelected(false);
-        debit.setSelected(false);
+        resetForm(credit);
     }
 
     @FXML
     void debitRadio(ActionEvent event) {
         methode = Methode.DEBIT;
         System.out.println(methode);
-        comptant.setSelected(false);
-        credit.setSelected(false);
+        resetForm(debit);
     }
 
     @FXML
     void registerF(ActionEvent event) {
         System.out.println("enter");
-
-        comptant.setSelected(false);
-        credit.setSelected(false);
-        debit.setSelected(false);
-        methode = null;
+        if (getData()) {
+            creerFacture();
+            resetForm(null);
+        }
     }
+
 
     @FXML
     void initialize() {
@@ -101,4 +103,42 @@ public class AppGraphicalController {
 
     }
 
+    public void resetForm(RadioButton selected) {
+
+        comptant.setSelected(false);
+        credit.setSelected(false);
+        debit.setSelected(false);
+
+        if (selected != null) {
+            selected.setSelected(true);
+
+        }else {
+            this.montantActuel = 0;
+            this.taxeActuel = 0;
+            this.message.setText(" ");
+        }
+    }
+
+    private Facture creerFacture() {
+        int i=0;
+        Facture facture = new Facture(this.montantActuel, this.taxeActuel, this.methode);
+        facture.calculerDons();
+        return facture;
+    }
+
+    private boolean getData() {
+        boolean aFonctionner = true;
+        try {
+            this.montantActuel = parseDouble(montantF.getText());
+            this.taxeActuel = parseDouble(taxeF.getText());
+        } catch (NumberFormatException f) {
+            this.message.setText("veuillez entrer un nombre valide ex 1.69");
+            aFonctionner = false;
+        } catch (NullPointerException n) {
+            this.message.setText("");
+            aFonctionner = false;
+        }
+
+        return aFonctionner;
+    }
 }
