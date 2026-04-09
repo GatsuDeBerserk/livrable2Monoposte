@@ -44,22 +44,22 @@ public class Facture {
     }
 
     public String compilerDonnes(String nomF, String montantF, String taxeF) {
-        String messages = " ";
+        String messages = "";
         try {
             this.setNom(nomF);
             this.setMontant(parseDouble(montantF));
             this.setTaxes(parseDouble(taxeF));
         } catch (Exception e) {
-            messages += "veuillez entrer des nombre valide ex 1.69\n";
+            messages += "veuillez entrer des nombre valide ex 1.69\n\n";
         }
         if (this.getNom().equals("Nom Prenom")) {
-            messages += "veuillez entrer un nom\n";
+            messages += "veuillez entrer un nom\n\n";
         }
         if (this.getMethode() == null) {
-            messages += "veuillez selectionner une méthode\n";
+            messages += "veuillez selectionner une méthode\n\n";
         }
         if (this.getMontant() < this.getTaxes()) {
-            messages += "erreur: les taxes sont plus grande que le montant de la facture\n";
+            messages += "erreur: les taxes sont plus grande que le montant de la facture\n\n";
         }
         return messages;
     }
