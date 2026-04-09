@@ -42,7 +42,8 @@ public class Facture {
         }
         return this.dons;
     }
-    public String compilerDonnes(String nomF,String montantF,String taxeF) {
+
+    public String compilerDonnes(String nomF, String montantF, String taxeF) {
         String messages = " ";
         try {
             this.setNom(nomF);
@@ -57,8 +58,12 @@ public class Facture {
         if (this.getMethode() == null) {
             messages += "veuillez selectionner une méthode\n";
         }
+        if (this.getMontant() < this.getTaxes()) {
+            messages += "erreur: les taxes sont plus grande que le montant de la facture\n";
+        }
         return messages;
     }
+
     public void setTaxes(double taxes) {
         this.taxes = taxes;
         calculerDons();

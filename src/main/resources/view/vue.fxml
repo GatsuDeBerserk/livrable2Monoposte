@@ -22,22 +22,22 @@
                               <Font size="11.0" />
                            </font>
                         </Label>
-                        <TextField id="question" fx:id="nomF" layoutX="10.0" layoutY="85.0" prefHeight="33.0" prefWidth="258.0" text="Nom Prenom">
+                        <TextField id="question" fx:id="nomFacture" layoutX="10.0" layoutY="85.0" onKeyReleased="#majDonsActuel" onMouseClicked="#selectionnerNom" prefHeight="33.0" prefWidth="258.0" text="Nom Prenom">
                            <font>
                               <Font size="17.0" />
                            </font>
                         </TextField>
-                        <Label id="total" fx:id="donUnique" layoutX="178.0" layoutY="10.0" prefHeight="54.0" prefWidth="95.0" text="0.00">
+                        <Label id="total" fx:id="donUnique" layoutX="178.0" layoutY="10.0" prefHeight="54.0" prefWidth="95.0" text="inconnu">
                            <font>
-                              <Font size="29.0" />
+                              <Font size="24.0" />
                            </font>
                         </Label>
-                        <TextField id="question" fx:id="montantF" layoutX="10.0" layoutY="140.0" prefHeight="46.0" prefWidth="161.0" text="Total avant Taxes">
+                        <TextField id="question" fx:id="montantFacture" layoutX="10.0" layoutY="140.0" onKeyReleased="#majDonsActuel" onMouseClicked="#selectionnerMontant" prefHeight="46.0" prefWidth="161.0" text="Total avant Taxes">
                            <font>
                               <Font size="17.0" />
                            </font>
                         </TextField>
-                        <TextField id="question" fx:id="taxeF" layoutX="173.0" layoutY="140.0" prefHeight="33.0" prefWidth="95.0" text="Taxes">
+                        <TextField id="question" fx:id="taxeFacture" layoutX="173.0" layoutY="140.0" onKeyReleased="#majDonsActuel" onMouseClicked="#selectionnerTaxe" prefHeight="33.0" prefWidth="95.0" text="Taxes">
                            <font>
                               <Font size="17.0" />
                            </font>
@@ -49,7 +49,7 @@
                               <RadioButton fx:id="credit" layoutX="161.0" layoutY="23.0" mnemonicParsing="false" onAction="#creditRadio" text="Crédit" />
                            </children>
                         </Pane>
-                        <Button id="bouton" fx:id="register" layoutX="26.0" layoutY="320.0" mnemonicParsing="false" onAction="#registerF" prefHeight="39.0" prefWidth="233.0" text="ajouter la facture" />
+                        <Button id="bouton" fx:id="enregistrer" disable="true" layoutX="26.0" layoutY="320.0" mnemonicParsing="false" onAction="#enregistrerFacture" prefHeight="39.0" prefWidth="233.0" text="ajouter la facture" />
                      </children>
                   </Pane>
                </children>

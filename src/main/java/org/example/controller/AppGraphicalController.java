@@ -3,20 +3,14 @@ package org.example.controller;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.input.InputMethodEvent;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import org.example.model.Facture;
 import org.example.model.Methode;
-
-import static java.lang.Double.parseDouble;
 
 public class AppGraphicalController {
     public double total = 0.0;
@@ -44,77 +38,72 @@ public class AppGraphicalController {
     private Label donUnique;
 
     @FXML
-    private TextField montantF;
+    private TextField montantFacture;
 
     @FXML
-    private TextField nomF;
+    private TextField nomFacture;
 
     @FXML
-    private Button register;
+    private Button enregistrer;
 
     @FXML
-    private TextField taxeF;
+    private TextField taxeFacture;
 
     @FXML
     private TextArea message;
 
     @FXML
-    public void autoUpdateMontant(InputMethodEvent event) {
-        updateDonsActuel();
-    }
-
-    @FXML
     void comptantRadio(ActionEvent event) {
         factureActuel.setMethode(Methode.COMPTANT);
-        resetForm(comptant);
-        updateDonsActuel();
+        renitialiserFormulaire(comptant);
+        majDonsActuel();
     }
 
     @FXML
     void creditRadio(ActionEvent event) {
         factureActuel.setMethode(Methode.CREDIT);
-        resetForm(credit);
-        updateDonsActuel();
+        renitialiserFormulaire(credit);
+        majDonsActuel();
     }
 
     @FXML
     void debitRadio(ActionEvent event) {
         factureActuel.setMethode(Methode.DEBIT);
-        resetForm(debit);
-        updateDonsActuel();
+        renitialiserFormulaire(debit);
+        majDonsActuel();
     }
 
     @FXML
-    void registerF(ActionEvent event) {
+    void enregistrerFacture(ActionEvent event) {
         enregistrerFacture();
-        resetForm(null);
+        renitialiserFormulaire(null);
     }
 
     //todo rechercher "texte si vide"/"placeholder"
     @FXML
-    void selectMontant(MouseEvent event) {
-        if (this.montantF.getSelectedText().equals(this.montantF.getText())) {
-            this.montantF.deselect();
-        } else if (this.montantF.getSelectedText().isEmpty()) {
-            this.montantF.selectAll();
+    void selectionnerMontant(MouseEvent event) {
+        if (this.montantFacture.getSelectedText().equals(this.montantFacture.getText())) {
+            this.montantFacture.deselect();
+        } else if (this.montantFacture.getSelectedText().isEmpty()) {
+            this.montantFacture.selectAll();
         }
     }
 
     @FXML
-    void selectNom(MouseEvent event) {
-        if (this.nomF.getSelectedText().equals(this.nomF.getText())) {
-            this.nomF.deselect();
-        } else if (this.nomF.getSelectedText().isEmpty()) {
-            this.nomF.selectAll();
+    void selectionnerNom(MouseEvent event) {
+        if (this.nomFacture.getSelectedText().equals(this.nomFacture.getText())) {
+            this.nomFacture.deselect();
+        } else if (this.nomFacture.getSelectedText().isEmpty()) {
+            this.nomFacture.selectAll();
         }
     }
 
     @FXML
-    void selectTaxe(MouseEvent event) {
-        if (this.taxeF.getSelectedText().equals(this.taxeF.getText())) {
-            this.taxeF.deselect();
-        } else if (this.taxeF.getSelectedText().isEmpty()) {
-            this.taxeF.selectAll();
+    void selectionnerTaxe(MouseEvent event) {
+        if (this.taxeFacture.getSelectedText().equals(this.taxeFacture.getText())) {
+            this.taxeFacture.deselect();
+        } else if (this.taxeFacture.getSelectedText().isEmpty()) {
+            this.taxeFacture.selectAll();
         }
     }
 
@@ -125,14 +114,14 @@ public class AppGraphicalController {
         assert debit != null : "fx:id=\"debit\" was not injected: check your FXML file 'vue.fxml'.";
         assert donTotal != null : "fx:id=\"donTotal\" was not injected: check your FXML file 'vue.fxml'.";
         assert donUnique != null : "fx:id=\"donUnique\" was not injected: check your FXML file 'vue.fxml'.";
-        assert montantF != null : "fx:id=\"montantF\" was not injected: check your FXML file 'vue.fxml'.";
-        assert nomF != null : "fx:id=\"nomF\" was not injected: check your FXML file 'vue.fxml'.";
-        assert register != null : "fx:id=\"register\" was not injected: check your FXML file 'vue.fxml'.";
-        assert taxeF != null : "fx:id=\"taxeF\" was not injected: check your FXML file 'vue.fxml'.";
+        assert montantFacture != null : "fx:id=\"montantF\" was not injected: check your FXML file 'vue.fxml'.";
+        assert nomFacture != null : "fx:id=\"nomF\" was not injected: check your FXML file 'vue.fxml'.";
+        assert enregistrer != null : "fx:id=\"register\" was not injected: check your FXML file 'vue.fxml'.";
+        assert taxeFacture != null : "fx:id=\"taxeF\" was not injected: check your FXML file 'vue.fxml'.";
 
     }
 
-    public void resetForm(RadioButton selected) {
+    public void renitialiserFormulaire(RadioButton selected) {
 
         comptant.setSelected(false);
         credit.setSelected(false);
@@ -148,9 +137,9 @@ public class AppGraphicalController {
             factureActuel.setNom("Nom Prenom");
             factureActuel.calculerDons();
 
-            nomF.setText("Nom Prenom");
-            montantF.setText("Total avant Taxes");
-            taxeF.setText("Taxes");
+            nomFacture.setText("Nom Prenom");
+            montantFacture.setText("Total avant Taxes");
+            taxeFacture.setText("Taxes");
             donUnique.setText("inconnu");
             this.message.setText(" ");
         }
@@ -164,23 +153,23 @@ public class AppGraphicalController {
             valeur = valeur.setScale(2, RoundingMode.HALF_UP);
             donTotal.setText(valeur.toString() + "$");
 
-            register.setDisable(true);
+            enregistrer.setDisable(true);
         }
     }
 
     @FXML
-    private void updateDonsActuel() {
-        String message = factureActuel.compilerDonnes(nomF.getText(), montantF.getText(), taxeF.getText());
+    private void majDonsActuel() {
+        String message = factureActuel.compilerDonnes(nomFacture.getText(), montantFacture.getText(), taxeFacture.getText());
         this.message.setText(message);
         if (message.length() > 1) {
             donUnique.setText("inconnu");
-            register.setDisable(true);
+            enregistrer.setDisable(true);
         } else {
             BigDecimal valeur = BigDecimal.valueOf(factureActuel.getDons());
             valeur = valeur.setScale(2, RoundingMode.HALF_UP);
 
             donUnique.setText(valeur.toString() + "$");
-            register.setDisable(false);
+            enregistrer.setDisable(false);
         }
     }
 }
