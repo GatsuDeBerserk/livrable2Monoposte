@@ -13,13 +13,8 @@ import org.example.model.Methode;
 import static java.lang.Double.parseDouble;
 
 public class AppGraphicalController {
-    public Methode methode = null;
     public double total = 0.0;
-    public List<Facture> historique;
-    public double montantActuel = 0;
-    public double taxeActuel = 0;
-    public double donActuel = 0;
-
+    public Facture factureActuel=new Facture(0,0,null);
 
     @FXML
     private ResourceBundle resources;
@@ -59,23 +54,20 @@ public class AppGraphicalController {
 
     @FXML
     void comptantRadio(ActionEvent event) {
-        methode = Methode.COMPTANT;
-        System.out.println(methode);
+        factureActuel.setMethode(Methode.COMPTANT);
         resetForm(comptant);
 //        comptant.setDisable(true); //grise la radio
     }
 
     @FXML
     void creditRadio(ActionEvent event) {
-        methode = Methode.CREDIT;
-        System.out.println(methode);
+        factureActuel.setMethode(Methode.CREDIT);
         resetForm(credit);
     }
 
     @FXML
     void debitRadio(ActionEvent event) {
-        methode = Methode.DEBIT;
-        System.out.println(methode);
+        factureActuel.setMethode(Methode.DEBIT);
         resetForm(debit);
     }
 
@@ -83,7 +75,7 @@ public class AppGraphicalController {
     void registerF(ActionEvent event) {
         System.out.println("enter");
         if (getData()) {
-            creerFacture();
+            enregistrerFacture();
             resetForm(null);
         }
     }
@@ -113,24 +105,22 @@ public class AppGraphicalController {
             selected.setSelected(true);
 
         }else {
-            this.montantActuel = 0;
-            this.taxeActuel = 0;
+            factureActuel.setMontant(0);
+            factureActuel.setTaxes(0);
             this.message.setText(" ");
         }
     }
 
-    private Facture creerFacture() {
-        int i=0;
-        Facture facture = new Facture(this.montantActuel, this.taxeActuel, this.methode);
-        facture.calculerDons();
-        return facture;
+    private void enregistrerFacture() {
+        factureActuel.calculerDons();
+        factureActuel.getDons();
     }
 
     private boolean getData() {
         boolean aFonctionner = true;
         try {
-            this.montantActuel = parseDouble(montantF.getText());
-            this.taxeActuel = parseDouble(taxeF.getText());
+            factureActuel.setMontant(parseDouble(montantF.getText()));
+            factureActuel.setTaxes(parseDouble(taxeF.getText()));
         } catch (NumberFormatException f) {
             this.message.setText("veuillez entrer un nombre valide ex 1.69");
             aFonctionner = false;
