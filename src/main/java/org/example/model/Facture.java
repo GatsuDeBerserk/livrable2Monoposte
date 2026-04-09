@@ -2,6 +2,7 @@ package org.example.model;
 
 public class Facture {
     private double dons;
+    private String nom;
     private double montant;
     private double taxes;
     private Methode methode;
@@ -49,6 +50,14 @@ public class Facture {
     public void setMethode(Methode methode) {
         this.methode = methode;
         calculerDons();
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public String getNom() {
+        return nom;
     }
 
     public double getDons() {

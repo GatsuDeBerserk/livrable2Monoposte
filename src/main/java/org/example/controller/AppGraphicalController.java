@@ -14,7 +14,7 @@ import static java.lang.Double.parseDouble;
 
 public class AppGraphicalController {
     public double total = 0.0;
-    public Facture factureActuel=new Facture(0,0,null);
+    public Facture factureActuel = new Facture(0, 0, null);
 
     @FXML
     private ResourceBundle resources;
@@ -104,7 +104,7 @@ public class AppGraphicalController {
         if (selected != null) {
             selected.setSelected(true);
 
-        }else {
+        } else {
             factureActuel.setMontant(0);
             factureActuel.setTaxes(0);
             this.message.setText(" ");
@@ -112,8 +112,7 @@ public class AppGraphicalController {
     }
 
     private void enregistrerFacture() {
-        factureActuel.calculerDons();
-        factureActuel.getDons();
+        total += factureActuel.getDons();
     }
 
     private boolean getData() {
