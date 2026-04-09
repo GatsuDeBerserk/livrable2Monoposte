@@ -168,40 +168,19 @@ public class AppGraphicalController {
         }
     }
 
-    private boolean compilerDonnes() {
-        String messages = " ";
-        try {
-            factureActuel.setNom(nomF.getText());
-            factureActuel.setMontant(parseDouble(montantF.getText()));
-            factureActuel.setTaxes(parseDouble(taxeF.getText()));
-        } catch (Exception e) {
-            messages += "veuillez entrer des nombre valide ex 1.69\n";
-        }
-        if (factureActuel.getNom().equals("Nom Prenom")) {
-            messages += "veuillez entrer un nom\n";
-        }
-        if (factureActuel.getMethode() == null) {
-            messages += "veuillez selectionner une méthode\n";
-        }
-        if (messages.length() > 1) {
-            this.message.setText(messages);
-            return false;
-        } else {
-            this.message.setText(messages);
-            return true;
-        }
-    }
-
     @FXML
     private void updateDonsActuel() {
-        if (compilerDonnes()) {
+        String message = factureActuel.compilerDonnes(nomF.getText(), montantF.getText(), taxeF.getText());
+        this.message.setText(message);
+        if (message.length() > 1) {
+            donUnique.setText("inconnu");
+            register.setDisable(true);
+        } else {
             BigDecimal valeur = BigDecimal.valueOf(factureActuel.getDons());
             valeur = valeur.setScale(2, RoundingMode.HALF_UP);
 
             donUnique.setText(valeur.toString() + "$");
             register.setDisable(false);
-        } else {
-            donUnique.setText("inconnu");
         }
     }
 }

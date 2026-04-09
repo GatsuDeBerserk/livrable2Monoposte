@@ -1,5 +1,7 @@
 package org.example.model;
 
+import static java.lang.Double.parseDouble;
+
 public class Facture {
     private double dons;
     private String nom;
@@ -40,7 +42,23 @@ public class Facture {
         }
         return this.dons;
     }
-
+    public String compilerDonnes(String nomF,String montantF,String taxeF) {
+        String messages = " ";
+        try {
+            this.setNom(nomF);
+            this.setMontant(parseDouble(montantF));
+            this.setTaxes(parseDouble(taxeF));
+        } catch (Exception e) {
+            messages += "veuillez entrer des nombre valide ex 1.69\n";
+        }
+        if (this.getNom().equals("Nom Prenom")) {
+            messages += "veuillez entrer un nom\n";
+        }
+        if (this.getMethode() == null) {
+            messages += "veuillez selectionner une méthode\n";
+        }
+        return messages;
+    }
     public void setTaxes(double taxes) {
         this.taxes = taxes;
         calculerDons();
