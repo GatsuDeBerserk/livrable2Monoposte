@@ -17,17 +17,12 @@
                <children>
                   <Pane id="formulaire" layoutX="-20.0" layoutY="6.0" prefHeight="377.0" prefWidth="288.0">
                      <children>
-                        <Label id="titre" layoutX="10.0" layoutY="10.0" prefHeight="39.0" prefWidth="134.0" text="Donnation sur la factrue">
-                           <font>
-                              <Font size="11.0" />
-                           </font>
-                        </Label>
                         <TextField id="question" fx:id="nomFacture" layoutX="14.0" layoutY="74.0" onKeyReleased="#majDonsActuel" onMouseClicked="#selectionnerNom" prefHeight="46.0" prefWidth="258.0" text="Nom Prenom">
                            <font>
                               <Font size="17.0" />
                            </font>
                         </TextField>
-                        <Label id="total" fx:id="donUnique" layoutX="178.0" layoutY="10.0" prefHeight="54.0" prefWidth="95.0" text="inconnu">
+                        <Label id="total" fx:id="donUnique" layoutX="171.0" layoutY="10.0" prefHeight="54.0" prefWidth="102.0" text="inconnu">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -51,9 +46,14 @@
                         </Pane>
                         <Button id="bouton" fx:id="enregistrer" disable="true" layoutX="26.0" layoutY="320.0" mnemonicParsing="false" onAction="#enregistrerFacture" prefHeight="39.0" prefWidth="233.0" text="ajouter la facture" />
                         <Label id="label" layoutX="20.0" layoutY="66.0" text="Nom Prenom" />
-                        <Label id="label" layoutX="20.0" layoutY="132.0" text="Nom Prenom" />
-                        <Label id="label" layoutX="188.0" layoutY="132.0" text="Nom Prenom" />
-                        <Label id="label" layoutX="20.0" layoutY="203.0" text="Nom Prenom" />
+                        <Label id="label" layoutX="20.0" layoutY="132.0" text="Montant" />
+                        <Label id="label" layoutX="188.0" layoutY="132.0" text="Taxes" />
+                        <Label id="label" layoutX="20.0" layoutY="203.0" text="Méthode" />
+                        <Label id="label" layoutX="-12.0" layoutY="-9.0" prefHeight="46.0" prefWidth="178.0" text="Donnation sur la factrue">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
                      </children>
                   </Pane>
                </children>
