@@ -90,6 +90,7 @@ public class AppGraphicalController {
         resetForm(null);
     }
 
+    //todo rechercher "texte si vide"/"placeholder"
     @FXML
     void selectMontant(MouseEvent event) {
         if (this.montantF.getSelectedText().equals(this.montantF.getText())) {
