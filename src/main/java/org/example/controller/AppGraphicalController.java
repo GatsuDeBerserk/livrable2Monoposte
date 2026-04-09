@@ -1,12 +1,18 @@
 package org.example.controller;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.InputMethodEvent;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import org.example.model.Facture;
 import org.example.model.Methode;
 
@@ -53,33 +59,63 @@ public class AppGraphicalController {
     private TextArea message;
 
     @FXML
+    public void autoUpdateMontant(InputMethodEvent event) {
+        updateDonsActuel();
+    }
+
+    @FXML
     void comptantRadio(ActionEvent event) {
         factureActuel.setMethode(Methode.COMPTANT);
         resetForm(comptant);
-//        comptant.setDisable(true); //grise la radio
+        updateDonsActuel();
     }
 
     @FXML
     void creditRadio(ActionEvent event) {
         factureActuel.setMethode(Methode.CREDIT);
         resetForm(credit);
+        updateDonsActuel();
     }
 
     @FXML
     void debitRadio(ActionEvent event) {
         factureActuel.setMethode(Methode.DEBIT);
         resetForm(debit);
+        updateDonsActuel();
     }
 
     @FXML
     void registerF(ActionEvent event) {
-        System.out.println("enter");
-        if (getData()) {
-            enregistrerFacture();
-            resetForm(null);
+        enregistrerFacture();
+        resetForm(null);
+    }
+
+    @FXML
+    void selectMontant(MouseEvent event) {
+        if (this.montantF.getSelectedText().equals(this.montantF.getText())) {
+            this.montantF.deselect();
+        } else if (this.montantF.getSelectedText().isEmpty()) {
+            this.montantF.selectAll();
         }
     }
 
+    @FXML
+    void selectNom(MouseEvent event) {
+        if (this.nomF.getSelectedText().equals(this.nomF.getText())) {
+            this.nomF.deselect();
+        } else if (this.nomF.getSelectedText().isEmpty()) {
+            this.nomF.selectAll();
+        }
+    }
+
+    @FXML
+    void selectTaxe(MouseEvent event) {
+        if (this.taxeF.getSelectedText().equals(this.taxeF.getText())) {
+            this.taxeF.deselect();
+        } else if (this.taxeF.getSelectedText().isEmpty()) {
+            this.taxeF.selectAll();
+        }
+    }
 
     @FXML
     void initialize() {
@@ -107,27 +143,64 @@ public class AppGraphicalController {
         } else {
             factureActuel.setMontant(0);
             factureActuel.setTaxes(0);
+            factureActuel.setMethode(null);
+            factureActuel.setNom("Nom Prenom");
+            factureActuel.calculerDons();
+
+            nomF.setText("Nom Prenom");
+            montantF.setText("Total avant Taxes");
+            taxeF.setText("Taxes");
+            donUnique.setText("inconnu");
             this.message.setText(" ");
         }
     }
 
     private void enregistrerFacture() {
-        total += factureActuel.getDons();
+        if (factureActuel.getDons() != 0) {
+            total += factureActuel.getDons();
+
+            BigDecimal valeur = BigDecimal.valueOf(total);
+            valeur = valeur.setScale(2, RoundingMode.HALF_UP);
+            donTotal.setText(valeur.toString() + "$");
+
+            register.setDisable(true);
+        }
     }
 
-    private boolean getData() {
-        boolean aFonctionner = true;
+    private boolean compilerDonnes() {
+        String messages = " ";
         try {
+            factureActuel.setNom(nomF.getText());
             factureActuel.setMontant(parseDouble(montantF.getText()));
             factureActuel.setTaxes(parseDouble(taxeF.getText()));
-        } catch (NumberFormatException f) {
-            this.message.setText("veuillez entrer un nombre valide ex 1.69");
-            aFonctionner = false;
-        } catch (NullPointerException n) {
-            this.message.setText("");
-            aFonctionner = false;
+        } catch (Exception e) {
+            messages += "veuillez entrer des nombre valide ex 1.69\n";
         }
+        if (factureActuel.getNom().equals("Nom Prenom")) {
+            messages += "veuillez entrer un nom\n";
+        }
+        if (factureActuel.getMethode() == null) {
+            messages += "veuillez selectionner une méthode\n";
+        }
+        if (messages.length() > 1) {
+            this.message.setText(messages);
+            return false;
+        } else {
+            this.message.setText(messages);
+            return true;
+        }
+    }
 
-        return aFonctionner;
+    @FXML
+    private void updateDonsActuel() {
+        if (compilerDonnes()) {
+            BigDecimal valeur = BigDecimal.valueOf(factureActuel.getDons());
+            valeur = valeur.setScale(2, RoundingMode.HALF_UP);
+
+            donUnique.setText(valeur.toString() + "$");
+            register.setDisable(false);
+        } else {
+            donUnique.setText("inconnu");
+        }
     }
 }

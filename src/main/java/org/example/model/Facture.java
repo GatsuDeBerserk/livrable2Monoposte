@@ -19,21 +19,25 @@ public class Facture {
 
     public double calculerDons() {
         double diviseur = 0;
-        switch (this.methode) {
-            case DEBIT: {
-                diviseur = DIVISEUR_DEBIT;
-                break;
+        if (this.methode != null) {
+            switch (this.methode) {
+                case DEBIT: {
+                    diviseur = DIVISEUR_DEBIT;
+                    break;
+                }
+                case CREDIT: {
+                    diviseur = DIVISEUR_CREDIT;
+                    break;
+                }
+                case COMPTANT: {
+                    diviseur = DIVISEUR_COMPTANT;
+                    break;
+                }
             }
-            case CREDIT: {
-                diviseur = DIVISEUR_CREDIT;
-                break;
-            }
-            case COMPTANT: {
-                diviseur = DIVISEUR_COMPTANT;
-                break;
-            }
+            this.dons = (0.02 * (montant + taxes) / diviseur);
+        } else {
+            this.dons = 0;
         }
-        this.dons = (0.02 * (montant + taxes) / diviseur);
         return this.dons;
     }
 
