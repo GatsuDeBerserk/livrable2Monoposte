@@ -64,7 +64,7 @@ public class Facture {
         if (this.getMontant() < this.getTaxes()) {
             messages += "erreur: les taxes sont plus grande que le montant de la facture\n\n";
         }
-        if (this.getNom().equals("Nom Prenom") || !(this.getNom().isBlank())) {
+        if (this.getNom().equals("Nom Prenom") || this.getNom().isBlank()) {
             messages += "veuillez entrer un nom\n\n";
         }
         if (this.getMethode() == null) {
