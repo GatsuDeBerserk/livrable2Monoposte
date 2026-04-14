@@ -1,5 +1,8 @@
 package org.example.model;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 import static java.lang.Double.parseDouble;
 
 public class Facture {
@@ -13,7 +16,8 @@ public class Facture {
     private final double DIVISEUR_DEBIT = 1.01;
 
 
-    public Facture(double montant, double taxes, Methode methode) {
+    public Facture(String nom, double montant, double taxes, Methode methode) {
+        this.nom = nom;
         this.montant = montant;
         this.taxes = taxes;
         this.methode = methode;
@@ -36,7 +40,9 @@ public class Facture {
                     break;
                 }
             }
-            this.dons = (0.02 * (montant + taxes) / diviseur);
+            BigDecimal valeur = BigDecimal.valueOf((0.02 * (montant + taxes) / diviseur));
+            valeur = valeur.setScale(15, RoundingMode.HALF_UP);
+            this.dons = valeur.doubleValue();
         } else {
             this.dons = 0;
         }

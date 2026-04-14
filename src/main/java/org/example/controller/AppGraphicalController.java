@@ -14,7 +14,7 @@ import org.example.model.Methode;
 
 public class AppGraphicalController {
     public double total = 0.0;
-    public Facture factureActuel = new Facture(0, 0, null);
+    public Facture factureActuel = new Facture("Nom Prenom", 0, 0, null);
 
     @FXML
     private ResourceBundle resources;
@@ -79,7 +79,6 @@ public class AppGraphicalController {
         renitialiserFormulaire(null);
     }
 
-    //todo rechercher "texte si vide"/"placeholder"
     @FXML
     void selectionnerMontant(MouseEvent event) {
         if (this.montantFacture.getSelectedText().equals(this.montantFacture.getText())) {
@@ -138,8 +137,8 @@ public class AppGraphicalController {
             factureActuel.calculerDons();
 
             nomFacture.setText("Nom Prenom");
-            montantFacture.setText("Total avant Taxes");
-            taxeFacture.setText("Taxes");
+            montantFacture.setText("000.00");
+            taxeFacture.setText("0.00");
             donUnique.setText("inconnu");
             this.message.setText(" ");
         }
