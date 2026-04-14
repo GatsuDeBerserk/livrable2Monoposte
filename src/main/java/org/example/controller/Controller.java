@@ -26,22 +26,23 @@ public class Controller extends Application {
         Tab tabOfGuichet1 = new Tab();
         tabOfGuichet1.setText("Machine 1");
         FXMLLoader fxmlLoader1 = new FXMLLoader(getClass().getResource("/view/vue.fxml"));
-//        fxmlLoader1.setControllerFactory(c -> {
-//            return new AppGraphicalController();
-//        });
-        fxmlLoader1.setControllerFactory(new Callback<Class<?>, Object>() {
-            @Override
-            public Object call(Class<?> param) {
-                AppGraphicalController app1GraphicalController = new AppGraphicalController();
-                ChangeListener<Boolean> selectAccount = new ChangeListener<>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                        // @learning This code does not execute multiple times once machine is opened unlike before, even though java.util.List.add(E) prevents from adding multiple tabs
-                    }
-                };
-                return app1GraphicalController;
-            }
+        fxmlLoader1.setControllerFactory(c -> {
+            return new AppGraphicalController();
         });
+
+//        fxmlLoader1.setControllerFactory(new Callback<Class<?>, Object>() {
+//            @Override
+//            public Object call(Class<?> param) {
+//                AppGraphicalController app1GraphicalController = new AppGraphicalController();
+//                ChangeListener<Boolean> selectAccount = new ChangeListener<>() {
+//                    @Override
+//                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+//                        // @learning This code does not execute multiple times once machine is opened unlike before, even though java.util.List.add(E) prevents from adding multiple tabs
+//                    }
+//                };
+//                return app1GraphicalController;
+//            }
+//        });
         tabOfGuichet1.setContent(fxmlLoader1.load());
         root.getTabs().add(tabOfGuichet1);
 

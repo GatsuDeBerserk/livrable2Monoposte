@@ -53,7 +53,7 @@ public class Facture {
             messages += "veuillez entrer des nombre valide ex 1.69\n\n";
         }
         if (this.getTaxes() == 0 || this.getMontant() == 0) {
-            messages+="veuillez entrer des valeur non-nulles dans taxes et montant\n\n";
+            messages += "veuillez entrer des valeur non-nulles dans taxes et montant\n\n";
         }
         if (this.getMontant() < this.getTaxes()) {
             messages += "erreur: les taxes sont plus grande que le montant de la facture\n\n";
@@ -63,6 +63,9 @@ public class Facture {
         }
         if (this.getMethode() == null) {
             messages += "veuillez selectionner une méthode\n\n";
+        }
+        if (this.getMontant() < 0 || this.getTaxes() < 0) {
+            messages += "veuillez entrer des nombres non-négatifs dans montant et taxes\n\n";
         }
         return messages;
     }
