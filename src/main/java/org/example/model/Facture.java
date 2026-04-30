@@ -6,6 +6,7 @@ import java.math.RoundingMode;
 import static java.lang.Double.parseDouble;
 
 public class Facture {
+    private String numFacture;
     private double dons;
     private String nom;
     private double montant;
@@ -16,7 +17,8 @@ public class Facture {
     private final double DIVISEUR_DEBIT = 1.01;
 
 
-    public Facture(String nom, double montant, double taxes, Methode methode) {
+    public Facture(String numFacture, String nom, double montant, double taxes, Methode methode) {
+        this.numFacture = numFacture;
         this.nom = nom;
         this.montant = montant;
         this.taxes = taxes;
@@ -49,9 +51,10 @@ public class Facture {
         return this.dons;
     }
 
-    public String compilerDonnes(String nomF, String montantF, String taxeF) {
+    public String compilerDonnes(String num, String nomF, String montantF, String taxeF) {
         String messages = "";
         try {
+            this.setNumFacture(num);
             this.setNom(nomF);
             this.setMontant(parseDouble(montantF));
             this.setTaxes(parseDouble(taxeF));
@@ -68,10 +71,13 @@ public class Facture {
             messages += "veuillez entrer un nom\n\n";
         }
         if (this.getMethode() == null) {
-            messages += "veuillez selectionner une méthode\n\n";
+            messages += "veuillez selectionner un mode de paiement, aucun mode n'est actuelement selectionner\n\n";
         }
         if (this.getMontant() < 0 || this.getTaxes() < 0) {
             messages += "veuillez entrer des nombres non-négatifs dans montant et taxes\n\n";
+        }
+        if (this.numFacture.equals("00000000")) {
+            messages += "veuillez entrer un numero de facture(lettres et/ou chiffres), le numero est actuellement 00000000\n\n";
         }
         return messages;
     }
@@ -89,6 +95,10 @@ public class Facture {
     public void setMethode(Methode methode) {
         this.methode = methode;
         calculerDons();
+    }
+
+    public void setNumFacture(String numFacture) {
+        this.numFacture = numFacture;
     }
 
     public void setNom(String nom) {
@@ -115,4 +125,7 @@ public class Facture {
         return methode;
     }
 
+    public String getNumFacture() {
+        return numFacture;
+    }
 }

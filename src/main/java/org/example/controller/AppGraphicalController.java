@@ -3,6 +3,7 @@ package org.example.controller;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.URL;
+import java.util.HashSet;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -14,7 +15,8 @@ import org.example.model.Methode;
 
 public class AppGraphicalController {
     public double total = 0.0;
-    public Facture factureActuel = new Facture("Nom Prenom", 0, 0, null);
+    public Facture factureActuel = new Facture("00000000", "Nom Prenom", 0, 0, null);
+    public HashSet<String> numerosDefacturesUtiliser = new HashSet<>();
 
     @FXML
     private ResourceBundle resources;
@@ -42,6 +44,9 @@ public class AppGraphicalController {
 
     @FXML
     private TextField nomFacture;
+
+    @FXML
+    private TextField numFacture;
 
     @FXML
     private Button enregistrer;
@@ -98,6 +103,15 @@ public class AppGraphicalController {
     }
 
     @FXML
+    void selectionnerNum(MouseEvent event) {
+        if (this.numFacture.getSelectedText().equals(this.numFacture.getText())) {
+            this.numFacture.deselect();
+        } else if (this.numFacture.getSelectedText().isEmpty()) {
+            this.numFacture.selectAll();
+        }
+    }
+
+    @FXML
     void selectionnerTaxe(MouseEvent event) {
         if (this.taxeFacture.getSelectedText().equals(this.taxeFacture.getText())) {
             this.taxeFacture.deselect();
@@ -130,12 +144,14 @@ public class AppGraphicalController {
             selected.setSelected(true);
 
         } else {
+            factureActuel.setNumFacture("00000000");
             factureActuel.setMontant(0);
             factureActuel.setTaxes(0);
             factureActuel.setMethode(null);
             factureActuel.setNom("Nom Prenom");
             factureActuel.calculerDons();
 
+            numFacture.setText("00000000");
             nomFacture.setText("Nom Prenom");
             montantFacture.setText("000.00");
             taxeFacture.setText("0.00");
@@ -148,6 +164,8 @@ public class AppGraphicalController {
         if (factureActuel.getDons() != 0) {
             total += factureActuel.getDons();
 
+            numerosDefacturesUtiliser.add(this.numFacture.getText());
+
             BigDecimal valeur = BigDecimal.valueOf(total);
             valeur = valeur.setScale(2, RoundingMode.HALF_UP);
             donTotal.setText(valeur.toString() + "$");
@@ -158,7 +176,10 @@ public class AppGraphicalController {
 
     @FXML
     private void majDonsActuel() {
-        String message = factureActuel.compilerDonnes(nomFacture.getText(), montantFacture.getText(), taxeFacture.getText());
+        String message = factureActuel.compilerDonnes(this.numFacture.getText(), nomFacture.getText(), montantFacture.getText(), taxeFacture.getText());
+        if (numerosDefacturesUtiliser.contains(this.numFacture.getText())) {
+            message += "ce numero de facture as déja été utiliser, veuillez revérifier et inséré un nouveau numero\n\n";
+        }
         this.message.setText(message);
         if (message.length() > 1) {
             donUnique.setText("inconnu");

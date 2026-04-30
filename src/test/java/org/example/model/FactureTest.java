@@ -10,7 +10,7 @@ class FactureTest {
 
     @BeforeEach
     void setup() {
-        f = new Facture("Terry Davis", 100, 15, null);
+        f = new Facture("12345678", "Terry Davis", 100, 15, null);
     }
 
     @Test
@@ -49,29 +49,30 @@ class FactureTest {
 
     @Test
     void givenDonnesDUneFactureNonRemplis_whenCompilerFacture_thenRetourneUnStringDeMessagesDErreurs() {
-        String messages = f.compilerDonnes("Nom Prenom", "000.00", "0.00");
+        String messages = f.compilerDonnes("12345678", "Nom Prenom", "000.00", "0.00");
 
         assertEquals(
                 "veuillez entrer des valeur non-nulles dans taxes et montant\n\n" +
                         "veuillez entrer un nom\n\n" +
-                        "veuillez selectionner une méthode\n\n"
+                        "veuillez selectionner un mode de paiement, aucun mode n'est actuelement selectionner\n\n"
                 , messages);
     }
 
     @Test
     void givenFactureRemplisSaufeQueTaxesPlusGrandeQueLeMontant_whenCompilerFacture_thenRetourneUnStringDeMessagesDErreurs() {
         f.setMethode(Methode.COMPTANT);
-        String messages = f.compilerDonnes("Terry Davis", "15.00", "100.00");
+        String messages = f.compilerDonnes("00000000", "Terry Davis", "15.00", "100.00");
 
         assertEquals(
-                "erreur: les taxes sont plus grande que le montant de la facture\n\n"
+                "erreur: les taxes sont plus grande que le montant de la facture\n\n" +
+                        "veuillez entrer un numero de facture(lettres et/ou chiffres), le numero est actuellement 00000000\n\n"
                 , messages);
     }
 
     @Test
     void givenFactureRemplisSaufeQueTaxesNegatives_whenCompilerFacture_thenRetourneUnStringAvecLErreureNegative() {
         f.setMethode(Methode.COMPTANT);
-        String messages = f.compilerDonnes("Terry Davis", "100", "-15");
+        String messages = f.compilerDonnes("12345678", "Terry Davis", "100", "-15");
 
         assertEquals(
                 "veuillez entrer des nombres non-négatifs dans montant et taxes\n\n"
